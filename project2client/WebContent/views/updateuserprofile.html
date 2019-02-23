@@ -1,6 +1,9 @@
 <b>Edit User Details</b><br>
+<!-- 'error' is $scope variable which is added in error callback func -->
 <span style="color:red">{{error.errorMessage}}</span>
-<!-- model user is from controller -->
+<!-- model 'user' is from controller -->
+<div ng-show="user==undefined"><a href="#/login">Please login to update user profile</a></div>
+<div ng-show="user!=undefined">
 <form>
 <pre>
 Enter email      :<input type="email" ng-model="user.email" disabled>
@@ -16,4 +19,4 @@ Select Role      :<select ng-model="user.role">
 <button ng-click="updateUserProfile(user)" class="btn btn-primary">Edit</button>
 </pre>
 </form>
-
+</div>

@@ -1,3 +1,8 @@
+/**
+ * UserCtrl
+ * To get UserService=
+ * function($http){var userService={},userService.userRegistrion=function(user),return userService}
+ */
 app.controller('UserCtrl',
 		function($scope,UserService,$location,$rootScope,$cookieStore){
 	$scope.userRegistration=function(user){
@@ -35,14 +40,20 @@ app.controller('UserCtrl',
 	})
 	}
 	
-	$scope.updateUserProfile=function(user){//updated user details
-		UserService.updateUserProfile(user)
+	$scope.updateUserProfile=function(user){//updated user details from view
+		UserService.updateUserProfile(user).then(
+				function(response){
+					alert('Updated user details successfully..')
+					$rootScope.user=user
+					$cookieStore.put('userDetails',user)
+					$location.path('/home')
+				},function(response){
+					if(response.status==401)
+						$location.path('/login')
+					//if status is 500, display the error message in updateuserprofile.html
+					$scope.error=response.data	//ErrorClazz object from middleware 
+				})
 	}
 })
-
-
-
-
-
 
 

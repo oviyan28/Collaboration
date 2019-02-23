@@ -18,7 +18,8 @@ app.factory('UserService',function($http){
 	}
 	
 	userService.updateUserProfile=function(user){
-		return $http.put("http://localhost:8080/project2middleware/updateuser",user)
+		//user is updated user details from controller
+		return $http.put("http://localhost:8080/project2middleware/updateuserdetails",user)
 	}
 	
 	

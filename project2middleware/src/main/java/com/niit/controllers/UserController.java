@@ -97,6 +97,7 @@ private UserDao userDao;
 		 return new ResponseEntity<User>(user,HttpStatus.OK);
 	}
 	 
+	 @RequestMapping(value="/updateuserdetails",method=RequestMethod.PUT)
 	public ResponseEntity<?> updateUser(@RequestBody User user,HttpSession session){
 		String email=(String)session.getAttribute("loginId");
 		//User is not Authenticated
@@ -105,7 +106,7 @@ private UserDao userDao;
 			 return new ResponseEntity<ErrorClazz>(errorClazz,HttpStatus.UNAUTHORIZED);//401 - login.html
 		 }
 		 //Check if the updated phonenumber is unique
-		 if(!userDao.isPhonenumberUnique(user.getPhonenumber())){
+		 if(!userDao.isUpdatedPhonenumberUnique(user.getPhonenumber(), email)){
 				ErrorClazz errorClazz=new ErrorClazz(1,"Phone number already exists.. pls enter another phonenumber");
 				return new ResponseEntity<ErrorClazz>(errorClazz,HttpStatus.INTERNAL_SERVER_ERROR);
 		 }
@@ -113,10 +114,16 @@ private UserDao userDao;
 				ErrorClazz errorClazz=new ErrorClazz(4,"Role cannot be null..");
 				return new ResponseEntity<ErrorClazz>(errorClazz,HttpStatus.INTERNAL_SERVER_ERROR);
 			}
+		 try{
 		 userDao.updateUser(user);
+		 }catch(Exception e){
+			 ErrorClazz errorClazz=new ErrorClazz(6,"Unable to update user profile "+e.getMessage());
+			 return new ResponseEntity<ErrorClazz>(errorClazz,HttpStatus.INTERNAL_SERVER_ERROR);
+		 }
 		 return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }
+
 
 
 

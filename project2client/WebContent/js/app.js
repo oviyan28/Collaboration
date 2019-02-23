@@ -17,6 +17,9 @@ app.config(function($routeProvider){
 	.when('/updateuserprofile',{controller:'UserCtrl',templateUrl:'views/updateuserprofile.html'})//SELECT
 	//C to V,UserService.getUser()..$scope.user=response.data
 	
+	.when('/addblog',{controller:'BlogPostCtrl',templateUrl:'views/blogpostform.html'})
+	.when('/blogsapproved',{controller:'BlogPostCtrl',templateUrl:'views/blogsapproved.html'})
+	.when('/blogswaitingforapproval',{controller:'BlogPostCtrl',templateUrl:'views/blogswaitingforapproval.html'})
 	.otherwise({templateUrl:'views/home.html'})
 })
 app.run(function($rootScope,UserService,$location,$cookieStore){//when module gets instantiated, get newly created $rootScope, add logout function to the $rootScope objecgt
@@ -44,8 +47,4 @@ app.run(function($rootScope,UserService,$location,$cookieStore){//when module ge
 	//Get the user details from cookie and assign it to the $rootScope variable 'user'
 	
 })
-
-
-
-
 
