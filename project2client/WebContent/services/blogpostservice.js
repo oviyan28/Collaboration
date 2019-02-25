@@ -1,6 +1,3 @@
-/**
- * 
- */
 app.factory('BlogPostService',function($http){
 	var blogPostService={}
 	var BASE_URL ="http://localhost:8080/project2middleware"
@@ -19,6 +16,18 @@ app.factory('BlogPostService',function($http){
 		return $http.get(BASE_URL + "/blogswaitingforapproval")
 	}
 	
+	blogPostService.getBlog=function(blogPostId){
+		alert('call the middleware to get the data')
+		return $http.get(BASE_URL + "/getblog/"+blogPostId)
+	}
+	
+	blogPostService.approveBlogPost=function(blogPost){
+		return $http.put(BASE_URL + "/approveblogpost",blogPost)//add the data in the body of http request
+	}
+	
+	blogPostService.rejectBlogPost=function(blogPost){
+		return $http.put(BASE_URL + "/rejectblogpost",blogPost)
+	}
 	
 	return blogPostService;
 })

@@ -20,6 +20,8 @@ app.config(function($routeProvider){
 	.when('/addblog',{controller:'BlogPostCtrl',templateUrl:'views/blogpostform.html'})
 	.when('/blogsapproved',{controller:'BlogPostCtrl',templateUrl:'views/blogsapproved.html'})
 	.when('/blogswaitingforapproval',{controller:'BlogPostCtrl',templateUrl:'views/blogswaitingforapproval.html'})
+	.when('/getblogwaitingforapproval/:blogpostid',{controller:'BlogInDetailCtrl',templateUrl:'views/blogapprovalform.html'})
+	.when('/getblogapproved/:blogpostid',{controller:'BlogInDetailCtrl',templateUrl:'views/blogindetail.html'})
 	.otherwise({templateUrl:'views/home.html'})
 })
 app.run(function($rootScope,UserService,$location,$cookieStore){//when module gets instantiated, get newly created $rootScope, add logout function to the $rootScope objecgt
@@ -47,4 +49,7 @@ app.run(function($rootScope,UserService,$location,$cookieStore){//when module ge
 	//Get the user details from cookie and assign it to the $rootScope variable 'user'
 	
 })
+
+
+
 

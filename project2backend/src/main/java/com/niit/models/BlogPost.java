@@ -1,4 +1,3 @@
-
 package com.niit.models;
 
 import java.util.Date;
@@ -11,7 +10,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 @Entity
-@Table(name="Job_12345")
+@Table(name="blogpost_12345")
 public class BlogPost {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -68,3 +67,5 @@ public void setApproved(boolean approved) {
 }
 
 }
+
+

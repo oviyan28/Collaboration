@@ -1,8 +1,3 @@
-/**
- * 
- *//**
- * BlogPostCtrl
- */
 app.controller('BlogPostCtrl',function($scope,BlogPostService,$location,$rootScope){
 	//Add a blog
 	//How to get blogpost object from the view?
@@ -11,6 +6,7 @@ app.controller('BlogPostCtrl',function($scope,BlogPostService,$location,$rootSco
 	$scope.addBlogPost=function(blogPost){ //ADDING A FUNCTION IN $scope
 		//pass the blogpost to BlogService.addBlogPost()
 		BlogPostService.addBlogPost(blogPost).then(function(response){
+			if($rootScope.user.role!='ADMIN')
 			alert('BlogPost added successfully and it is waiting for approval')
 			$location.path('/home')
 		},function(response){
@@ -48,9 +44,10 @@ app.controller('BlogPostCtrl',function($scope,BlogPostService,$location,$rootSco
 					//Display the error message in the same view
 				$scope.error=response.data
 			})
+			
+	$scope.addBoldTags=function(){
+		$scope.blogPost.blogContent=$scope.blogPost.blogContent + "<b></b>"
+	}
 })
 
-
-
-//9 - adding a function in $scope
 
