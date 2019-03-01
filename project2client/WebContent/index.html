@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
@@ -28,6 +29,22 @@
 <li><a href="" ng-show="user!=undefined">{{user.firstname}}&nbsp;{{user.lastname}}</a></li>
 <li><a href="#/updateuserprofile" ng-show="user!=undefined">Edit UserProfile</a></li><!-- view is updateuserprofile.html -->
 
+<li class="dropdown" >
+<a href="" class="dropdown-toggle" data-toggle="dropdown" ng-show="user.email!=undefined"> 
+<span class="glyphicon glyphicon-globe" > 
+  <span class="rw-number-notification" ng-if="notificationCount>0">{{notificationCount}}</span></span></a>
+   <ul class="dropdown-menu" >
+  <span class="dropdown-content">
+   <li ng-repeat="notification in notifications">
+     <a href="#/getnotification/{{notification.notificationId}}">Blog titled "<b>{{notification.blogTitle}} "</b>approval status is updated </a>
+     <hr>
+   </li>
+   </span>
+   </ul>
+</li>
+
+
+
 <li class="dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown" ng-show="user!=undefined">Blog
 			<span class="caret"></span></a>
@@ -49,6 +66,8 @@
 </div>
 </body>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="resources/css/glyphiconcolor.css">
+<link rel="stylesheet" href="resources/css/notification.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript"
@@ -67,5 +86,7 @@
 <script type="text/javascript" src="controllers/blogpostcontroller.js"></script>
 <script type="text/javascript" src="controllers/blogindetailcontroller.js"></script>
 <script type="text/javascript" src="services/blogpostservice.js"></script>
+<script type="text/javascript" src="controllers/notificationcontroller.js"></script>
+<script type="text/javascript" src="services/notificationservice.js"></script>
 
 </html>
