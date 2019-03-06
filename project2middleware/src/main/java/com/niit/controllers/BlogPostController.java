@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.niit.dao.BlogPostDao;
+import com.niit.dao.NotificationDao;
 import com.niit.dao.UserDao;
 import com.niit.models.BlogPost;
 import com.niit.models.ErrorClazz;
+import com.niit.models.Notification;
 import com.niit.models.User;
+
 
 @RestController
 public class BlogPostController {
@@ -27,6 +30,9 @@ public class BlogPostController {
 private BlogPostDao blogPostDao;
 	@Autowired
 private UserDao userDao;
+	@Autowired
+private NotificationDao notificationDao;
+	
 @RequestMapping(value="/addblog",method=RequestMethod.POST)
 public ResponseEntity<?> addBlogPost(HttpSession session,@RequestBody BlogPost blogPost){
 	//Check for Authenticated- only logged user can post a blog 
@@ -110,10 +116,18 @@ public ResponseEntity<?> approveBlogPost(HttpSession session,@RequestBody BlogPo
 		}
 		blogPost.setApproved(true);
 		blogPostDao.approveBlogPost(blogPost);
+		
+		//Create a notification object and call notificationDao.addNotification(notification)
+		//insert a record in notification table
+	    Notification notification=new Notification();
+	    notification.setApprovedOrRejected("Approved");
+	    notification.setBlogTitle(blogPost.getBlogTitle());
+    	notification.setUserToBeNotified(blogPost.getAuthor());//AUTHOR OF THE BLOGPOST
+		notificationDao.addNotification(notification);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 }
-@RequestMapping(value="/rejectblogpost",method=RequestMethod.PUT)
-public ResponseEntity<?> rejectBlogPost(HttpSession session,@RequestBody BlogPost blogPost){
+@RequestMapping(value="/rejectblogpost/{rejectionReason}",method=RequestMethod.PUT)
+public ResponseEntity<?> rejectBlogPost(HttpSession session,@PathVariable String rejectionReason,@RequestBody BlogPost blogPost){
 	//CHECK FOR AUTHENTICATION
 		String email=(String)session.getAttribute("loginId");
 		if(email==null){
@@ -128,9 +142,18 @@ public ResponseEntity<?> rejectBlogPost(HttpSession session,@RequestBody BlogPos
 				new ErrorClazz(7,"Access Denied.. You are not authorized to view the blogs waiting for approval");
 			return new ResponseEntity<ErrorClazz>(errorClazz,HttpStatus.UNAUTHORIZED);
 		}
+		
+		//insert a record in notification table by calling a DAO
+		Notification notification=new Notification();
+	    notification.setApprovedOrRejected("Rejected");
+	    notification.setBlogTitle(blogPost.getBlogTitle());
+    	notification.setUserToBeNotified(blogPost.getAuthor());//AUTHOR OF THE BLOGPOST
+    	notification.setRejectionReason(rejectionReason);//ENTERED BY ADMIN
+		notificationDao.addNotification(notification);
 		blogPostDao.rejectBlogPost(blogPost);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 }
+
 
 }
 
