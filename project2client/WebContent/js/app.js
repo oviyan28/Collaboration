@@ -22,11 +22,14 @@ app.config(function($routeProvider){
 	.when('/blogswaitingforapproval',{controller:'BlogPostCtrl',templateUrl:'views/blogswaitingforapproval.html'})
 	.when('/getblogwaitingforapproval/:blogpostid',{controller:'BlogInDetailCtrl',templateUrl:'views/blogapprovalform.html'})
 	.when('/getblogapproved/:blogpostid',{controller:'BlogInDetailCtrl',templateUrl:'views/blogindetail.html'})
-	.otherwise({templateUrl:'views/home.html'})
 	.when('/home',{controller:'NotificationCtrl',templateUrl:'views/home.html'})
 	.when('/getnotification/:notificationId',{controller:'NotificationCtrl',templateUrl:'views/notificationindetail.html'})
+	.when('/uploadprofilepic',{templateUrl:'views/uploadprofilepic.html'})
+	.when('/suggestedusers',{controller:'FriendCtrl',templateUrl:'views/suggesteduserslist.html'})
+	.when('/pendingrequests',{controller:'FriendCtrl',templateUrl:'views/pendingrequests.html'})
+	.when('/listoffriends',{controller:'FriendCtrl',templateUrl:'views/friendslist.html'})
+	.when('/chat',{controller:'ChatCtrl',templateUrl:'views/chat.html'})
 	.otherwise({controller:'NotificationCtrl',templateUrl:'views/home.html'})
-
 })
 app.run(function($rootScope,UserService,$location,$cookieStore){//when module gets instantiated, get newly created $rootScope, add logout function to the $rootScope objecgt
 	alert('app.run function is getting executed...')
@@ -53,7 +56,5 @@ app.run(function($rootScope,UserService,$location,$cookieStore){//when module ge
 	//Get the user details from cookie and assign it to the $rootScope variable 'user'
 	
 })
-
-
 
 

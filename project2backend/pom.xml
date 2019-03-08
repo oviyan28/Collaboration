@@ -50,6 +50,20 @@
     <artifactId>hibernate-commons-annotations</artifactId>
     <version>4.0.5.Final</version>
 </dependency>
+
+<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-websocket</artifactId>
+		<version>4.0.0.RELEASE</version>
+		</dependency>
+		<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-messaging</artifactId>
+		<version>4.0.0.RELEASE</version>
+		</dependency>
+
+
+
 <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
 <dependency>
     <groupId>org.hibernate</groupId>

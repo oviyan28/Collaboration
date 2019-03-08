@@ -17,3 +17,4 @@ public interface NotificationDao {
 	//update notification set viewed=1 where notificationId=?
 	void updateNotificactionViewedStatus(int notificationId);
 }
+
